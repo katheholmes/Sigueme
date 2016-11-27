@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../templates/plantilla.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <h1 style="margin-left: 450px; margin-top: 50px;">Editar Incidencia</h1>
+                    <p:separator/>
+                    
+                    <h:messages showDetail="true" showSummary="true"/>
+                    <h:panelGrid columns="3">
+                        
+                        <h:outputLabel for="numCaso" value="Número de Caso"/>
+                        <h:inputText id="numCaso" required="true" requiredMessage="campo obligatorio"
+                                     value="#{incidenciaController.incidencia.numeroDeCaso}" disabled="true"/>
+                        <h:message for="numCaso"/>
+                        
+                        <h:outputLabel for="agente" value="Agente"/>
+                        <h:selectOneMenu id="agente" value="#{incidenciaController.agente.cedula}">
+                            <f:selectItems var="agenter" value="#{incidenciaController.usuarios}"
+                                           itemLabel="#{agenter.apellidos}" itemValue="#{agenter.cedula}"/>
+                         </h:selectOneMenu>
+                        <h:message for="agente"/>
+                        
+                        <h:outputLabel for="categoria" value="Categoría"/>
+                        <h:selectOneMenu id="categoria" value="#{incidenciaController.servicio.servicioID}">
+                            <f:selectItems var="category" value="#{incidenciaController.servicios}"
+                                           itemLabel="#{category.descripcion}" itemValue="#{category.servicioID}"/>
+                         </h:selectOneMenu>
+                        <h:message for="categoria"/>
+                        
+                        <h:outputLabel for="descripcion" value="Descripción"/>
+                        <h:inputTextarea id="descripcion" required="true" requiredMessage="campo obligatorio"
+                                         rows="5" cols="23" value="#{incidenciaController.incidencia.descripcion}"/>
+                        <h:message for="descripcion"/>
+                        
+                        <h:commandButton id="modInci" value="Guardar" 
+                                         action="#{incidenciaController.editarIncidencia()}"/>
+                        
+                    </h:panelGrid>
+                    <h:commandButton value="Regresar al listado" action="incidentPrincipal" style="float: right;"/>
+                    <br/><br/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

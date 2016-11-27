@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../templates/plantilla.xhtml">
+
+            <ui:define name="content">
+                
+                <h:form>
+                    <h2>Listado de Incidencias</h2>
+                    <p:separator/>
+                    <h:commandButton action="createIncident" value="Registrar Incidencia" style="float: right; "/>
+                    <h:commandButton action="./../../sigueme" value="Regresar" style="float: right;"/>
+                    <!--<h:link value="Registrar Incidencia" outcome="createIncident"/>-->
+                    <br/><br/><br/><br/>
+                    <h:messages showDetail="true" showSummary="true"/>
+                    <h:dataTable var="incident" value="#{incidenciaController.listarIncidencias()}"
+                                 border="1" cellpadding="6" cellspacing="2" rows="4">
+                        
+                        <h:column>
+                            <f:facet name="header">Número de Incidencia</f:facet>
+                            <h:outputText value="#{incident.numeroDeCaso}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">Categoría</f:facet>
+                            <h:outputText value="#{incident.idCategoria.descripcion}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">Agente</f:facet>
+                            <h:outputText value="#{incident.agente.apellidos}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">Fecha de Registro</f:facet>
+                            <h:outputText value="#{incident.fechaRegistro}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">Descripción</f:facet>
+                            <h:outputText value="#{incident.descripcion}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">Acciones</f:facet>
+                            <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar la incidencia?')"
+                                           action="#{incidenciaController.eliminarIncidencia(incident)}" />
+                            <h:commandButton value="Editar"
+                                           action="#{incidenciaController.editarIncidencia(incident)}" />
+                        </h:column>  
+                        
+                    </h:dataTable>
+                    
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

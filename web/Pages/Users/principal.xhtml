@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../templates/plantilla.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <h:messages showDetail="true" showSummary="true"/>
+                    <h2>Listado de Usuarios</h2>
+                    <p:separator/>
+                    <h:commandButton action="createUser" value="Registrar Usuario" style="float: right;  "/>
+                    <h:commandButton action="./../../sigueme" value="Regresar" style="float: right;"/>
+                    <!--<h:link value="Registrar Incidencia" outcome="createIncident"/>-->
+                    <br/><br/><br/><br/>                                 
+                    <h:dataTable var="user" value="#{usuarioController.listarUsuarios()}"
+                                 border="1" cellpadding="6" cellspacing="2" rows="4" >
+                        
+                        <h:column>
+                            <f:facet name="header">Cedula</f:facet>
+                            <h:outputText value="#{user.cedula}"/>
+                        </h:column> 
+                        
+                        <h:column>
+                            <f:facet name="header">Nombre</f:facet>
+                            <h:outputText value="#{user.nombre}"/>
+                        </h:column> 
+                        
+                        <h:column>
+                            <f:facet name="header">Apellidos</f:facet>
+                            <h:outputText value="#{user.apellidos}"/>
+                        </h:column> 
+                        
+                        <h:column>
+                            <f:facet name="header">Email</f:facet>
+                            <h:outputText value="#{user.email}"/>
+                        </h:column> 
+                        
+                        <h:column>
+                            <f:facet name="header">Rol</f:facet>
+                            <h:outputText value="#{user.idRol.descripcion}"/>
+                        </h:column> 
+                        
+                        <h:column>
+                            <f:facet name="header">Acciones</f:facet>
+                            <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar el usuario?')"
+                                           action="#{usuarioController.eliminarUsuario(user)}"/>
+                            <h:commandButton value="Editar" 
+                                           action="#{usuarioController.editarUsuario(user)}"/>
+                        </h:column>
+                         
+                    </h:dataTable>
+                </h:form>
+              
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
